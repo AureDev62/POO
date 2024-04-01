@@ -5,19 +5,29 @@
  */
 class Compte
 {
+
+    // déclarer les propriétés comme privées dans une classe favorise l'encapsulation,
+    //la protection des données, la réutilisabilité et la sécurité du code.
+    //C'est une pratique recommandée pour concevoir des classes bien encapsulées et modulaires 
+    //en programmation orientée objet
     // Propriétés
     /**
      * Titulaire du compte
      *
      * @var string
      */
-    public $titulaire;
+    private string $titulaire;
     /**
      * Solde du compte
      *
      * @var float
      */
-    public $solde;
+    private float $solde;
+
+
+    //Constantes
+    //::Paamayim Nekudotayim
+    const TAUX_INTERETS = 5;
 
 
     //Méthodes
@@ -33,7 +43,68 @@ class Compte
         //On attribue le nom à la propriété titulaire de l'instance créée  
         $this->titulaire = $nom;
         //On attribue le montant à la propriété solde de l'instance créée 
-        $this->solde = $montant;
+        $this->solde = $montant + ($montant * self::TAUX_INTERETS / 100);
+    }
+
+
+    /**
+     * Méthode magique pour la conversion en chaînes de caractères
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return "Vous visualisez le compte de {$this->titulaire}, le solde est de {$this->solde} euros";
+    }
+
+    //Accesseurs
+
+    /**
+     * Getter de Titulaire - Retourne la valeur du titulaire du compte
+     *
+     * @return string
+     */
+    public function getTitulaire(): string
+    {
+        return $this->titulaire;
+    }
+
+    /**
+     * Modifie le nom du titulaire et retourne l'objet
+     *
+     * @param string $nom Nom du titulaire
+     * @return Compte Compte bancaire
+     */
+    public function setTitulaire(string $nom): self
+    {
+        //On vérifie si on a un titulaire
+        if ($nom != "") {
+            $this->titulaire = $nom;
+        }
+        return $this;
+    }
+
+    /**
+     * Retourne le solde du compte
+     *
+     * @return float Solde du compte
+     */
+    public function getSolde(): float
+    {
+        return $this->solde;
+    }
+    /**
+     * Modifie le solde du compte
+     *
+     * @param float $montant Montant du solde
+     * @return Compte Compte bancaire
+     */
+    public function setSolde(float $montant): self
+    {
+        if ($montant >= 0) {
+            $this->solde = $montant;
+        }
+        return $this;
     }
 
     /**
@@ -73,6 +144,17 @@ class Compte
             $this->solde -= $montant;
         } else {
             echo "Montant invalide ou solde insuffisant ";
+        }
+        echo $this->decouvert();
+    }
+
+
+    private function decouvert()
+    {
+        if ($this->solde < 0) {
+            return "Vous êtes à découvert";
+        } else {
+            return "Vous n'êtes pas à découvert";
         }
     }
 }
