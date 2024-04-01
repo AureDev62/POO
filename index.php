@@ -1,34 +1,24 @@
 <?php
 require_once 'class/Compte.php';
+require_once 'class/CompteCourant.php';
+require_once 'class/CompteEpargne.php';
+require_once 'class/CompteEpargneCourant.php';
+
+
 
 //On instancie le compte
-$compte1 = new compte('Benoit', 500);
-
-// $compte1->setSolde(200);
-
-// //On écrit dans la propiété titulaire si pas de contructeur
-// $compte1->titulaire = 'Auré';
-// //on écrit dans la propiété solde si pas de constructeur
-// $compte1->solde = 500;
-$compte1->setTitulaire('Max');
-
-//On dépose 
-$compte1->deposer(100);
-echo $compte1->getTitulaire();
-$compte1->setTitulaire('');
-?>
-
-<p><?= $compte1->voirSolde() ?></p>
-
-<?php
-
-$compte1->retirer(500);
-
+$compte1 = new CompteCourant('Max', 500, 200);
+var_dump($compte1);
+// $compte1->setDecouvert(200);
+$compte1->setTitulaire('Aure');
+$compte1->retirer(200);
 var_dump($compte1);
 
-echo $compte1;
+$compteEpargne = new CompteEpargneCourant('Max', 200, 10, 200);
 
-echo "Le taux d'intérêt du compte est  : " . Compte::TAUX_INTERETS . " %";
-// $compte2 = new compte;
-// $compte2->titulaire = 'Moi meme';
-// var_dump($compte2);
+var_dump($compteEpargne);
+
+$compteEpargne->verserInterets();
+$compteEpargne->retirer(300);
+
+var_dump($compteEpargne);

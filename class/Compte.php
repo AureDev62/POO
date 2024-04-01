@@ -3,32 +3,29 @@
 /**
  * Objet Compte bancaire
  */
-class Compte
+abstract class Compte
 {
-
     // déclarer les propriétés comme privées dans une classe favorise l'encapsulation,
     //la protection des données, la réutilisabilité et la sécurité du code.
     //C'est une pratique recommandée pour concevoir des classes bien encapsulées et modulaires 
     //en programmation orientée objet
+
+    //protected sont accessible à l'intérieur de la classe qui les a définies et à
+    // l'intérieur des classes héritées
+
     // Propriétés
     /**
      * Titulaire du compte
      *
      * @var string
      */
-    private string $titulaire;
+    protected string $titulaire;
     /**
      * Solde du compte
      *
      * @var float
      */
-    private float $solde;
-
-
-    //Constantes
-    //::Paamayim Nekudotayim
-    const TAUX_INTERETS = 5;
-
+    protected float $solde;
 
     //Méthodes
     /**
@@ -43,7 +40,7 @@ class Compte
         //On attribue le nom à la propriété titulaire de l'instance créée  
         $this->titulaire = $nom;
         //On attribue le montant à la propriété solde de l'instance créée 
-        $this->solde = $montant + ($montant * self::TAUX_INTERETS / 100);
+        $this->solde = $montant;
     }
 
 
@@ -144,17 +141,6 @@ class Compte
             $this->solde -= $montant;
         } else {
             echo "Montant invalide ou solde insuffisant ";
-        }
-        echo $this->decouvert();
-    }
-
-
-    private function decouvert()
-    {
-        if ($this->solde < 0) {
-            return "Vous êtes à découvert";
-        } else {
-            return "Vous n'êtes pas à découvert";
         }
     }
 }
