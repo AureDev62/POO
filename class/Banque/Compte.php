@@ -3,6 +3,8 @@
 
 namespace App\Banque;
 
+use App\Client\Compte as CompteClient;
+
 /**
  * Objet Compte bancaire
  */
@@ -20,9 +22,9 @@ abstract class Compte
     /**
      * Titulaire du compte
      *
-     * @var string
+     * @var CompteClient
      */
-    protected string $titulaire;
+    private CompteClient $titulaire;
     /**
      * Solde du compte
      *
@@ -34,14 +36,14 @@ abstract class Compte
     /**
      * Constructeur du compte bancaire
      *
-     * @param string $nom Nom du titulaire
+     * @param CompteClient $compte Compte client du titulaire 
      * @param integer $montant Montant du solde 
      */
-    public function __construct(string $nom, float $montant = 100)
+    public function __construct(CompteClient $compte, float $montant = 100)
     // $montant est facultatif , si aucun montant n'est spécifié le montant par défaut est de 100
     {
         //On attribue le nom à la propriété titulaire de l'instance créée  
-        $this->titulaire = $nom;
+        $this->titulaire = $compte;
         //On attribue le montant à la propriété solde de l'instance créée 
         $this->solde = $montant;
     }
@@ -62,24 +64,24 @@ abstract class Compte
     /**
      * Getter de Titulaire - Retourne la valeur du titulaire du compte
      *
-     * @return string
+     * @return CompteClient
      */
-    public function getTitulaire(): string
+    public function getTitulaire(): CompteClient
     {
         return $this->titulaire;
     }
 
     /**
-     * Modifie le nom du titulaire et retourne l'objet
+     * Modifie le compte du titulaire et retourne l'objet
      *
-     * @param string $nom Nom du titulaire
+     * @param CompteClient $compte Compte client du titulaire
      * @return Compte Compte bancaire
      */
-    public function setTitulaire(string $nom): self
+    public function setTitulaire(CompteClient $compte): self
     {
         //On vérifie si on a un titulaire
-        if ($nom != "") {
-            $this->titulaire = $nom;
+        if (isset($compte)) {
+            $this->titulaire = $compte;
         }
         return $this;
     }

@@ -2,6 +2,8 @@
 
 namespace App\Banque;
 
+use App\Client\Compte as CompteClient;
+
 /**
  * Compte bancaire (hérite de Compte)
  */
@@ -13,15 +15,15 @@ class CompteCourant extends Compte
     /**
      * Constructeur de compte courant
      *
-     * @param string $nom Nom du titulaire
+     * @param CompteClient $compte Compte client du titulaire
      * @param float $montant Montant du solde à l'ouverture
      * @param integer $decouvert Découvert autorisé
      * @return void
      */
-    public function __construct(string $nom, float $montant, int $decouvert)
+    public function __construct(CompteClient $compte,  float $montant, int $decouvert)
     {
         //On transfère les informations nécéssaires au constructeur de Compte
-        parent::__construct($nom, $montant);
+        parent::__construct($compte, $montant);
 
         $this->decouvert = $decouvert;
     }

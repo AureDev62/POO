@@ -13,8 +13,10 @@ use App\Banque\{CompteCourant, CompteEpargne};
 
 require_once 'class/Autoloader.php';
 Autoloader::register();
+$client = new CompteClient('AUre', 'AUre2', 'Lille');
+
 //On instancie le compte
-$compte1 = new CompteCourant('Max', 500, 200);
+$compte1 = new CompteCourant($client, 500, 200);
 // var_dump($compte1);
 // // $compte1->setDecouvert(200);
 // $compte1->setTitulaire('Aure');
@@ -22,8 +24,11 @@ $compte1 = new CompteCourant('Max', 500, 200);
 var_dump($compte1);
 
 
-$compteEpargne = new CompteEpargne('Benoit', 500, 10);
+$compteEpargne = new CompteEpargne($client, 500, 10);
 var_dump($compteEpargne);
+
+
+var_dump($client);
 
 // $compteEpargne->verserInterets();
 // $compteEpargne->retirer(300);
